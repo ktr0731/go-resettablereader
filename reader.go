@@ -15,6 +15,10 @@ type Reader struct {
 
 // New returns a new *Reader.
 func New(r io.Reader) *Reader {
+	if v, ok := r.(*Reader); ok {
+		return v
+	}
+
 	var buf bytes.Buffer
 	return &Reader{
 		Reader: io.TeeReader(r, &buf),
